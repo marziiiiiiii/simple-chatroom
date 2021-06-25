@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="chat styles.css" />
+  <link rel="stylesheet" href="chat.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css">
 
@@ -12,6 +12,8 @@
 <body>
 
   <?php
+	if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
+
   $con = mysqli_connect("localhost", "root", "", "chat");
 
   $query = "SELECT * FROM users  ";
@@ -31,7 +33,10 @@
 
 
   $con->close();
+  }else{
+    header('Location: signinsignup.php');
 
+  }
   ?>
 
 
@@ -41,10 +46,12 @@
 
         <img src="./resourses/1.jpg" alt="avatar" />
         <div class="about">
-          <div class="myname">Vincent Porter</div>
+          <div class="myname"><?php echo $_COOKIE["user"] ?></div>
           <div class="logout">
             <div class="mystatus">online</div>
-            <button class="logout-btn">logout</button>
+            <form action="signout.php" method="GET">
+              <button class="logout-btn" type="submit">logout</button>
+            </form>
           </div>
         </div>
 
@@ -55,7 +62,7 @@
           <img src="./resourses/2.jpg" alt="avatar" />
           <div class="about">
             <div class="name">Aiden Chavez</div>
-            <div class="status">left 7 mins ago</div>
+            <div class="status">last seen recently</div>
           </div>
         </li>
 
@@ -63,7 +70,7 @@
           <img src="./resourses/3.jpg" alt="avatar" />
           <div class="about">
             <div class="name">Mike Thomas</div>
-            <div class="status">online</div>
+            <div class="status">last seen recently</div>
           </div>
         </li>
 
@@ -71,7 +78,7 @@
           <img src="./resourses/4.jpg" alt="avatar" />
           <div class="about">
             <div class="name">Erica Hughes</div>
-            <div class="status">online</div>
+            <div class="status">last seen recently</div>
           </div>
         </li>
 
@@ -79,7 +86,7 @@
           <img src="./resourses/5.jpg" alt="avatar" />
           <div class="about">
             <div class="name">Ginger Johnston</div>
-            <div class="status">online</div>
+            <div class="status">last seen recently</div>
           </div>
         </li>
 
@@ -87,14 +94,14 @@
           <img src="./resourses/6.jpg" alt="avatar" />
           <div class="about">
             <div class="name">Ginger Johnston</div>
-            <div class="status">online</div>
+            <div class="status">last seen recently</div>
           </div>
         </li>
         <li class="">
           <img src="./resourses/7.jpg" alt="avatar" />
           <div class="about">
             <div class="name">Ginger Johnston</div>
-            <div class="status">online</div>
+            <div class="status">last seen recently</div>
           </div>
         </li>
       </ul>

@@ -31,7 +31,11 @@ body {
   font-size: 25px;
 }
 .warning {
-  margin-bottom: 80px;
+  margin-top: 60px;
+}
+.welcome{
+  font-weight:bold;
+  font-size: 40px;
 }
 .main {
   background-color: #579ffb;
@@ -54,7 +58,6 @@ input {
   margin: 40px;
   font-size: 17px;
 }
-
 
 .btn:hover {
   background-color: #ddd;
