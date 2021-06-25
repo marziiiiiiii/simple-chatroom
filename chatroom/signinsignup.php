@@ -26,14 +26,22 @@
 			if (!$con) {
 				die(mysqli_connect_errno());
 			}
-			$chekedSignIn = false;
-			$checkedSignUp = false;
+
+			$expire = time() + 60 * 60 * 24 * 7;
 
 			if ($sign == "Sign Up") {
 				$sql = "INSERT INTO users (user, pass, picture) 
 					VALUES ('" . $user . "', '" . $pass . "',NULL)";
 
-				$checkedSignUp = true;
+				if (mysqli_query($con, $sql)) {
+
+					setcookie("user", $user, $expire);
+					setcookie("signedin", "1", $expire);
+					header('Location: chat.php');
+				} else {
+					// echo "Error: " . $sql . "<br>" . mysqli_error($con);
+					$msg = "Username is already taken. Try again.";
+				}
 			} else {
 				$result = mysqli_query($con, "SELECT user, pass FROM users WHERE user = '" . $user . "' AND  pass = '" . $pass . "'");
 
@@ -44,45 +52,29 @@
 					$check_user = $row['user'];
 					$check_pass = $row['pass'];
 
-					echo "user pass is correct.";
+					// echo "user pass is correct.";
 				}
 
 				if ($user == $check_user && $pass == $check_pass) {
-					echo "Matches.";
-					$chekedSignIn = true;
+					// echo "Matches.";
+					setcookie("user", $user, $expire);
+					setcookie("signedin", "1", $expire);
+					header('Location: chat.php');
+				} else {
+					$msg = "No match found. Try again.";
 				}
 			}
 
-			if ($chekedSignIn || $checkedSignUp) {
-				$con->query($sql);
-				$expire = time() + 60 * 60 * 24 * 7;
-				setcookie("user", $user, $expire);
-				setcookie("signedin", "1", $expire);
-				header('Location: chat.php');
-			} else {
-				$msg = "No match found. Try again.";
-			}
 
 
 			$con->close();
-
-			// if (mysqli_query($con, $sql)) {
-
-			// 	echo "Cookies have set.";
-
-			// } else {
-			// 	echo "Error: " . $sql . "<br>" . mysqli_error($con);
-			// }
-
-			// mysqli_close($con);
 		} else {
 			$msg = "*You must enter a username and password.";
-			// echo '<div class="warning">You must enter a username and password.</div>';
 		}
 	}
 	?>
-	<div class='welcome'>welcome to SMSM messenger</div>
-	<img src="./resourses/sep2.png" alt="">
+	<div class='welcome'>SMSM messenger</div>
+	<!-- <img  src="./resourses/paper3.gif" alt=""> -->
 	<div class='main'>
 		<form action="signinsignup.php" method="POST">
 			<br>

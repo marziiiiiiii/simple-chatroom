@@ -5,9 +5,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css">
 
-  <!-- <link href='https://fonts.googleapis.com/css?family=Atma' rel='stylesheet'> -->
 </head>
-<script src="chat.js"></script>
+<!-- src="chat.js" -->
+
 
 <body>
 
@@ -24,27 +24,32 @@
 
 
     if ($result->num_rows > 0) {
-      // output data of each row
       $list = "";
       while ($row = $result->fetch_assoc()) {
 
 
         if ($row["user"] != $_COOKIE["user"]) {
-
-          $list = $list . '<li>
-          <img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
+          if ($row["picture"] == null) {
+            $list = $list . '<li>
+            <img  src="./resourses/u2.png"/>';
+          } else {
+            $list = $list . '<li>
+            <img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
+          }
 
           $list = $list .  "<div class='about'>
               <div class='name'> " . $row["user"] . " </div>
               <div class='status'>last seen recently</div>
             </div>
-          </li> "; //. " " . $row["picture"] . "<br>";
+          </li> ";
         } else {
-          $myavatar = '<img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
-
+          if ($row["picture"] == null) {
+            $myavatar = '<img  src="./resourses/u2.png"/>';
+          } else {
+            $myavatar = '<img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
+          }
         }
       }
-      // echo $list;
     } else {
       echo "0 results";
     }
@@ -54,6 +59,7 @@
     header('Location: signinsignup.php');
   }
   ?>
+
 
 
   <div class="list">
@@ -75,52 +81,6 @@
       </div>
       <ul class="people">
         <?php echo $list; ?>
-        <!-- <li class="">
-          <img src="./resourses/2.jpg" alt="avatar" />
-          <div class="about">
-            <div class="name">Aiden Chavez</div>
-            <div class="status">last seen recently</div>
-          </div>
-        </li>
-
-        <li class="">
-          <img src="./resourses/3.jpg" alt="avatar" />
-          <div class="about">
-            <div class="name">Mike Thomas</div>
-            <div class="status">last seen recently</div>
-          </div>
-        </li>
-
-        <li class="">
-          <img src="./resourses/4.jpg" alt="avatar" />
-          <div class="about">
-            <div class="name">Erica Hughes</div>
-            <div class="status">last seen recently</div>
-          </div>
-        </li>
-
-        <li class="">
-          <img src="./resourses/5.jpg" alt="avatar" />
-          <div class="about">
-            <div class="name">Ginger Johnston</div>
-            <div class="status">last seen recently</div>
-          </div>
-        </li>
-
-        <li class="">
-          <img src="./resourses/6.jpg" alt="avatar" />
-          <div class="about">
-            <div class="name">Ginger Johnston</div>
-            <div class="status">last seen recently</div>
-          </div>
-        </li>
-        <li class="">
-          <img src="./resourses/7.jpg" alt="avatar" />
-          <div class="about">
-            <div class="name">Ginger Johnston</div>
-            <div class="status">last seen recently</div>
-          </div>
-        </li> -->
       </ul>
     </div>
   </div>
@@ -129,19 +89,20 @@
       <div class="msger-header-title">
         <i class="fas fa-comment-alt"></i> SMSM messenger
       </div>
-      <div class="msger-header-options">
-        <span><i class="fa fa-cog"></i></span>
-      </div>
+      <!-- <div class="msger-header-options">
+          <span><i class="fa fa-cog"></i></span>
+        </div> -->
     </header>
 
     <main class="msger-chat">
       <div class="msg left-msg">
-        <div class="msg-img" style="background-image: url(./resourses/1.jpg)"></div>
+        <!-- <div class="msg-img" style="background-image: url(./resourses/1.jpg)"></div> -->
+        <img class="msg-img" src="./resourses/3.jpg" />
 
         <div class="msg-bubble">
           <div class="msg-info">
             <div class="msg-info-name">Mahsa</div>
-            <div class="msg-info-time">12:45</div>
+            <div class="msg-info-time" >fsdfds</div>
           </div>
 
           <div class="msg-text">
@@ -151,12 +112,13 @@
       </div>
 
       <div class="msg right-msg">
-        <div class="msg-img" style="background-image: url(./resourses/2.jpg)"></div>
+        <!-- <div class="msg-img" style="background-image: url(./resourses/2.jpg)"></div> -->
+        <img class="msg-img" src="./resourses/2.jpg" />
 
         <div class="msg-bubble">
           <div class="msg-info">
-            <div class="msg-info-name">Marzieh</div>
-            <div class="msg-info-time">12:46</div>
+            <div class="msg-info-name"><?php echo $_COOKIE["user"] ?></div>
+            <div class="msg-info-time" id="time"></div>
           </div>
 
           <div class="msg-text">You can change your name in JS div!</div>
@@ -172,6 +134,14 @@
       <button type="submit" class="msger-send-btn"><i class="fa fa-send"></i></button>
     </form>
   </div>
+
+
+  <script>
+    var today = new Date();
+    var time = today.getHours() + ':' + today.getMinutes();
+    document.getElementById("time").innerHTML=time;
+    
+  </script>
 </body>
 
 </html>

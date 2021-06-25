@@ -33,9 +33,15 @@ body {
 .warning {
   margin-top: 60px;
 }
-.welcome{
-  font-weight:bold;
+.welcome {
+  font-weight: bold;
   font-size: 40px;
+  /* height: 200px; */
+  background-image:url("./resourses/paper3.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 60px;
+  margin: 40px;
 }
 .main {
   background-color: #579ffb;
