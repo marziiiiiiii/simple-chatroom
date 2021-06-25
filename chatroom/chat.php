@@ -12,30 +12,44 @@
 <body>
 
   <?php
-	if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
+  if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
 
-  $con = mysqli_connect("localhost", "root", "", "chat");
+    $con = mysqli_connect("localhost", "root", "", "chat");
+    if ($con->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
 
-  $query = "SELECT * FROM users  ";
-  $result = mysqli_query($con, $query);
-  $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-  // echo "<div class='main content'>";
-
-  // foreach ($data as $key => $row) {
-  // 	echo "<ul>";
-  // 	foreach ($row as $key2 => $row2) {
-  // 		echo "<li><img src='" . $row2 . "' alt='avatar' /></li>";
-  // 	}
-  // 	echo "</ul>";
-  // }
-  // echo "</div>";
+    $sql = "SELECT * FROM users  ";
+    $result = $con->query($sql);
 
 
-  $con->close();
-  }else{
+    if ($result->num_rows > 0) {
+      // output data of each row
+      $list = "";
+      while ($row = $result->fetch_assoc()) {
+
+
+        if ($row["user"] != $_COOKIE["user"]) {
+
+          $list = $list . '<li>
+          <img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
+
+
+          $list = $list .  "<div class='about'>
+              <div class='name'> " . $row["user"] . " </div>
+              <div class='status'>last seen recently</div>
+            </div>
+          </li> "; //. " " . $row["picture"] . "<br>";
+        }
+      }
+      // echo $list;
+    } else {
+      echo "0 results";
+    }
+
+    $con->close();
+  } else {
     header('Location: signinsignup.php');
-
   }
   ?>
 
@@ -57,8 +71,8 @@
 
       </div>
       <ul class="people">
-
-        <li class="">
+        <?php echo $list; ?>
+        <!-- <li class="">
           <img src="./resourses/2.jpg" alt="avatar" />
           <div class="about">
             <div class="name">Aiden Chavez</div>
@@ -103,7 +117,7 @@
             <div class="name">Ginger Johnston</div>
             <div class="status">last seen recently</div>
           </div>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

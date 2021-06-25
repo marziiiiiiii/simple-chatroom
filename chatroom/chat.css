@@ -68,15 +68,14 @@ img {
   height: 85px;
   margin-bottom: 20px;
 }
-.myname {
-  padding-left:10px ;
+ .myname {
   font-weight: bold;
 }
-.mystatus{
+/* .mystatus{
   margin-right: 50px;
   padding-left:10px ;
 
-}
+} */ 
 .logout-btn {
   border: none;
   background-color: transparent;

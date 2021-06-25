@@ -6,13 +6,13 @@ if (!$con) {
 
 //---------------------------------------------
 
-$sql = "CREATE TABLE users
-(
-user varchar(15) NOT NULL , 
-PRIMARY KEY(user),
-pass varchar(15) NOT NULL ,
-picture BLOB 
-)";
+// $sql = "CREATE TABLE users
+// (
+// user varchar(15) NOT NULL , 
+// PRIMARY KEY(user),
+// pass varchar(15) NOT NULL ,
+// picture BLOB 
+// )";
 
 //---------------------------------------------
 
