@@ -1,25 +1,31 @@
 <html>
   <head>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="chat styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+      type="text/css"
+    />
   </head>
   <script src="chat.js"></script>
   <body>
     <div class="list">
       <div class="people-list" id="people-list">
         <div class="profile">
-          
-            <img src="./resourses/1.jpg" alt="avatar" />
-            <div class="about">
-              <div class="myname" >Vincent Porter</div>
-              <div class="logout"><div class="mystatus">online</div>
+          <img src="./resourses/1.jpg" alt="avatar" />
+          <div class="about">
+            <div class="myname">Vincent Porter</div>
+            <div class="logout">
+              <div class="mystatus">online</div>
               <button class="logout-btn">logout</button>
-            </div></div>
-          
+            </div>
+          </div>
         </div>
         <ul class="people">
-
           <li class="">
             <img src="./resourses/2.jpg" alt="avatar" />
             <div class="about">
@@ -121,26 +127,27 @@
           class="msger-input"
           placeholder="Enter your message..."
         />
-        
-        
-        <button type="submit" class="msger-record-btn"><i class="fa fa-microphone">
-          
-          <input type="file" accept="audio/*" capture id="recorder">
-          <audio id="player" controls></audio>
-          <script>
-            const recorder = document.getElementById('recorder');
-            const player = document.getElementById('player');
-          
-            recorder.addEventListener('change', function(e) {
-              const file = e.target.files[0];
-              const url = URL.createObjectURL(file);
-              // Do something with the audio file.
-              player.src = url;
-            });
-          </script>
 
-        </i></button>
-        <button type="submit" class="msger-send-btn"><i class="fa fa-send"></i></button>
+        <button type="submit" class="msger-record-btn">
+          <i class="fa fa-microphone">
+            <!-- <input type="file" accept="audio/*" capture id="recorder" />
+            <audio id="player" controls></audio>
+            <script>
+              const recorder = document.getElementById('recorder');
+              const player = document.getElementById('player');
+
+              recorder.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                const url = URL.createObjectURL(file);
+                // Do something with the audio file.
+                player.src = url;
+              });
+            </script> -->
+          </i>
+        </button>
+        <button type="submit" class="msger-send-btn">
+          <i class="fa fa-send"></i>
+        </button>
       </form>
     </div>
   </body>
