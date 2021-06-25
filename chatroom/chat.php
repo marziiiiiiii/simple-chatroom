@@ -34,12 +34,14 @@
           $list = $list . '<li>
           <img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
 
-
           $list = $list .  "<div class='about'>
               <div class='name'> " . $row["user"] . " </div>
               <div class='status'>last seen recently</div>
             </div>
           </li> "; //. " " . $row["picture"] . "<br>";
+        } else {
+          $myavatar = '<img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
+
         }
       }
       // echo $list;
@@ -58,7 +60,8 @@
     <div class="people-list" id="people-list">
       <div class="profile">
 
-        <img src="./resourses/1.jpg" alt="avatar" />
+        <?php echo $myavatar ?>
+
         <div class="about">
           <div class="myname"><?php echo $_COOKIE["user"] ?></div>
           <div class="logout">
