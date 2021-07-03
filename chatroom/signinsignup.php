@@ -58,6 +58,7 @@
 				if ($user == $check_user && $pass == $check_pass) {
 					// echo "Matches.";
 					setcookie("user", $user, $expire);
+					setcookie("dest", "   " , $expire);
 					setcookie("signedin", "1", $expire);
 					header('Location: chat.php');
 				} else {

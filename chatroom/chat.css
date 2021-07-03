@@ -60,15 +60,15 @@ img {
 .profile {
   border-radius: 3px;
   border: none;
-  padding: 15px 19px 9px 19px;
+  padding: 15px 19px 9px 10px;
   color: white;
   background: var(--right-msg-bg);
   width: 100%;
-  font-size: 20px;
-  height: 85px;
+  font-size: 18px;
+  height: 105px;
   margin-bottom: 20px;
 }
- .myname {
+.myname {
   font-weight: bold;
   font-size: 30px;
 }
@@ -76,7 +76,7 @@ img {
   margin-right: 50px;
   padding-left:10px ;
 
-} */ 
+} */
 .logout-btn {
   border: none;
   background-color: transparent;

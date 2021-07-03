@@ -1,32 +1,51 @@
-const msgerForm = get(".msger-inputarea");
-const msgerInput = get(".msger-input");
-const msgerChat = get(".msger-chat");
+const msgerForm = get('.msger-inputarea');
+const msgerInput = get('.msger-input');
+const msgerChat = get('.msger-chat');
 
 const BOT_MSGS = [
-  "Hi, how are you?",
+  'Hi, how are you?',
   "Ohh... I can't understand what you trying to say. Sorry!",
   "I like to play games... But I don't know how to play!",
-  "Sorry if my answers are not relevant. :))",
-  "I feel sleepy! :("
+  'Sorry if my answers are not relevant. :))',
+  'I feel sleepy! :(',
 ];
 
 // Icons made by Freepik from www.flaticon.com
-const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
-const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
-const BOT_NAME = "BOT";
-const PERSON_NAME = "Sajad";
+// const BOT_IMG = 'https://image.flaticon.com/icons/svg/327/327779.svg';
+// const PERSON_IMG = 'https://image.flaticon.com/icons/svg/145/145867.svg';
+// const BOT_NAME = 'BOT';
+// const PERSON_NAME = 'Sajad';
 
-msgerForm.addEventListener("submit", event => {
+const from = get('.myname');
+const fromImg = get('.myavatar');
+
+function sendmsg() {
   event.preventDefault();
 
   const msgText = msgerInput.value;
   if (!msgText) return;
+  appendMessage(from.textContent, fromImg.src, 'right', msgText);
+  msgerInput.value = '';
+}
+function sendvc() {
+  event.preventDefault();
+}
+function openHistory(n){
+  console.log(n)
+  document.cookie = "dest="+n; 
+}
 
-  appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
-  msgerInput.value = "";
+// msgerForm.addEventListener('submit', (event) => {
+//   event.preventDefault();
 
-  botResponse();
-});
+//   const msgText = msgerInput.value;
+//   if (!msgText) return;
+
+//   appendMessage(PERSON_NAME, PERSON_IMG, 'right', msgText);
+//   msgerInput.value = '';
+
+//   botResponse();
+// });
 
 function appendMessage(name, img, side, text) {
   //   Simple solution for small apps
@@ -45,17 +64,17 @@ function appendMessage(name, img, side, text) {
     </div>
   `;
 
-  msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+  msgerChat.insertAdjacentHTML('beforeend', msgHTML);
   msgerChat.scrollTop += 500;
 }
 
 function botResponse() {
   const r = random(0, BOT_MSGS.length - 1);
   const msgText = BOT_MSGS[r];
-  const delay = msgText.split(" ").length * 100;
+  const delay = msgText.split(' ').length * 100;
 
   setTimeout(() => {
-    appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+    appendMessage(BOT_NAME, BOT_IMG, 'left', msgText);
   }, delay);
 }
 
@@ -65,8 +84,8 @@ function get(selector, root = document) {
 }
 
 function formatDate(date) {
-  const h = "0" + date.getHours();
-  const m = "0" + date.getMinutes();
+  const h = '0' + date.getHours();
+  const m = '0' + date.getMinutes();
 
   return `${h.slice(-2)}:${m.slice(-2)}`;
 }

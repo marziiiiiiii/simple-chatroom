@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css">
 
 </head>
-<!-- src="chat.js" -->
 
 
 <body>
@@ -19,6 +18,11 @@
       die("Connection failed: " . $conn->connect_error);
     }
 
+
+    $displaySend = "";
+    $user = $_COOKIE["user"];
+    $dest = $_COOKIE["dest"];
+
     $sql = "SELECT * FROM users  ";
     $result = $con->query($sql);
 
@@ -28,12 +32,12 @@
       while ($row = $result->fetch_assoc()) {
 
 
-        if ($row["user"] != $_COOKIE["user"]) {
+        if ($row["user"] != $user) {
           if ($row["picture"] == null) {
-            $list = $list . '<li>
+            $list = $list . '<li onclick = openHistory("' . $row["user"] . '")>
             <img  src="./resourses/u2.png"/>';
           } else {
-            $list = $list . '<li>
+            $list = $list . '<li onclick = openHistory("' . $row["user"] . '")>
             <img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
           }
 
@@ -44,14 +48,21 @@
           </li> ";
         } else {
           if ($row["picture"] == null) {
-            $myavatar = '<img  src="./resourses/u2.png"/>';
+            $myavatar = '<img class="myavatar" src="./resourses/u2.png"/>';
           } else {
-            $myavatar = '<img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
+            $myavatar = '<img class="myavatar" src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
           }
         }
       }
     } else {
       echo "0 results";
+    }
+
+    if ($dest != "   ") {
+      $sql = "SELECT * FROM messages WHERE src='. $user .' and dest='. $dest .' ";
+      //TODO mesle bala row haro bebar too ghaleb message html va string haro join kon
+      //message to ham dar box pak kon
+      // echo "ksjdfkldshgjkhskgh";
     }
 
     $con->close();
@@ -69,7 +80,7 @@
         <?php echo $myavatar ?>
 
         <div class="about">
-          <div class="myname"><?php echo $_COOKIE["user"] ?></div>
+          <div class="myname"><?php echo $user ?></div>
           <div class="logout">
             <div class="mystatus">online</div>
             <form action="signout.php" method="GET">
@@ -89,58 +100,54 @@
       <div class="msger-header-title">
         <i class="fas fa-comment-alt"></i> SMSM messenger
       </div>
-      <!-- <div class="msger-header-options">
-          <span><i class="fa fa-cog"></i></span>
-        </div> -->
     </header>
 
     <main class="msger-chat">
       <div class="msg left-msg">
         <!-- <div class="msg-img" style="background-image: url(./resourses/1.jpg)"></div> -->
-        <img class="msg-img" src="./resourses/3.jpg" />
+        <!-- <img class="msg-img" src="./resourses/4.jpg" /> -->
 
-        <div class="msg-bubble">
+        <!-- <div class="msg-bubble">
           <div class="msg-info">
             <div class="msg-info-name">Mahsa</div>
-            <div class="msg-info-time" >fsdfds</div>
+            <div class="msg-info-time">fsdfds</div>
           </div>
 
           <div class="msg-text">
             Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="msg right-msg">
-        <!-- <div class="msg-img" style="background-image: url(./resourses/2.jpg)"></div> -->
+        <!-- <div class="msg-img" style="background-image: url(./resourses/2.jpg)"></div>
         <img class="msg-img" src="./resourses/2.jpg" />
 
         <div class="msg-bubble">
           <div class="msg-info">
-            <div class="msg-info-name"><?php echo $_COOKIE["user"] ?></div>
+            <div class="msg-info-name"></div>
             <div class="msg-info-time" id="time"></div>
           </div>
 
           <div class="msg-text">You can change your name in JS div!</div>
         </div>
-      </div>
+      </div> -->
     </main>
 
-    <form class="msger-inputarea">
-      <input type="text" class="msger-input" placeholder="Enter your message..." />
+    <form class="msger-inputarea" style="display: <?php echo $displaySend ?>;">
+      <input type="text" class="msger-input" placeholder="Enter your message to <?php echo $dest ?>" />
 
 
-      <button type="submit" class="msger-record-btn"><i class="fa fa-microphone"></i></button>
-      <button type="submit" class="msger-send-btn"><i class="fa fa-send"></i></button>
+      <button onclick=sendvc() class="msger-record-btn"><i class="fa fa-microphone"></i></button>
+      <button onclick=sendmsg() class="msger-send-btn"><i class="fa fa-send"></i></button>
     </form>
   </div>
 
 
-  <script>
-    var today = new Date();
-    var time = today.getHours() + ':' + today.getMinutes();
-    document.getElementById("time").innerHTML=time;
-    
+  <script src="chat.js">
+    // var today = new Date();
+    // var time = today.getHours() + ':' + today.getMinutes();
+    // document.getElementById("time").innerHTML=time;
   </script>
 </body>
 
