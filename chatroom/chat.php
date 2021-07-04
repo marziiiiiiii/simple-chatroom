@@ -1,8 +1,10 @@
 <!-- line 17 in case <img class="msg-img" src="./resourses/4.jpg" /> -->
 <!-- line 23  <div class="msg-info-name">' . $source . '</div> -->
+<!-- onload="window.onload = Scrolldown;" -->
 
 <!-- TODO style contact when select -->
 <!-- TODO scroll onload 183 -->
+<!-- optional delete and notif -->
 <html>
 
 <head>
@@ -13,7 +15,7 @@
 </head>
 
 
-<body>
+<body OnLoad="document.myform.txtmsg.focus();">
 
   <?php
   function addMsgToHTMLStr($Messags, $side, $source, $sendTime, $textMsg)
@@ -41,7 +43,7 @@
       die("Connection failed: " . $conn->connect_error);
     }
 
-    $tempppppppppppppppppppppppppppppppp = "";
+    $displayLastSeen = "";
     $Messags = "";
     $displaySend = "";
     $user = $_COOKIE["user"];
@@ -55,23 +57,25 @@
 
 
     if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
+      $theirPicSrc = "";
 
+      while ($row = $result->fetch_assoc()) {
 
         if ($row["user"] != $user) {
           if ($row["picture"] == null) {
-            $list = $list . '<li onclick = openHistory("' . $row["user"] . '")>
-            <img  src="./resourses/u2.png"/>';
+            $theirPicSrc = "./resourses/u2.png";
           } else {
-            $list = $list . '<li onclick = openHistory("' . $row["user"] . '")>
-            <img  src="data:image/jpeg;base64,' . base64_encode($row["picture"]) . '"/>';
+            $theirPicSrc = 'data:image/jpeg;base64,' . base64_encode($row['picture']);
           }
 
-          $list = $list .  "<div class='about'>
+          $list = $list .  "<li onclick = openHistory('" . $row['user'] . "')>
+              <img  src='" . $theirPicSrc . "'/>
+              <div class='about'>
               <div class='name'> " . $row["user"] . " </div>
               <div class='status'>last seen recently</div>
             </div>
           </li> ";
+
         } else {
           if ($row["picture"] == null) {
             $myavatar = '<img class="myavatar" src="./resourses/u2.png"/>';
@@ -107,43 +111,14 @@
           }
         }
       } else {
-        $Messags = "no history";
+        $Messags = "<div class='empty-history'>no history</div>";
       }
 
-      //TODO mesle bala row haro bebar too ghaleb message html va string haro join kon
-      //message to ham dar box pak kon
     } else {
+      $displayLastSeen = "hidden";
       $displaySend = "none";
+      $Messags = "<div class='empty-history'>select chat</div>";
     }
-
-    //---------------------- send msg -----------------------
-
-
-    // if (!empty($_POST["sendmsg"]) && $_POST["sendmsg"] == "txt") {
-    //   $txtmsg = $_POST['txtmsg'];
-
-    //   $sql = "INSERT INTO msgs (source, destination, sendTime, textMsg, seen)
-    // 		VALUES ('" . $user . "', '" . $dest . "' ,  now(), '" . $txtmsg . "', false)";
-
-
-    //   if (mysqli_query($con, $sql)) {
-    //     $tempppppppppppppppppppppppppppppppp = "New record " . $user . " to " . $dest . "=> " . $txtmsg;
-    //   } else {
-    //     echo "Error: " . $sql . "<br>" . mysqli_error($con);
-    //   }
-
-
-
-
-
-    //   // } else if (array_key_exists('sendvc', $_POST)) {
-    // } else if (!empty($_POST["sendmsg"]) && $_POST['sendmsg'] == "vc") {
-    //   $tempppppppppppppppppppppppppppppppp = "This is voice that is selected";
-    //   unset($_POST['sendvc']);
-    // }
-
-    //----------------------  -----------------------
-
 
     $con->close();
   } else {
@@ -156,7 +131,6 @@
   <div class="list">
     <div class="people-list" id="people-list">
       <div class="profile">
-        <?php echo $tempppppppppppppppppppppppppppppppp ?>
         <?php echo $myavatar ?>
 
         <div class="about">
@@ -177,7 +151,7 @@
   </div>
   <div class="msger">
     <header class="msger-header">
-      <div>
+      <div style="visibility: <?php echo $displayLastSeen ?>;">
         last seen recently
       </div>
       <div class="msger-header-title">
@@ -188,26 +162,27 @@
       </div>
     </header>
 
-    <main class="msger-chat" onload="window.onload = Scrolldown;">
+    <main id="history" class="msger-chat">
       <?php echo $Messags; ?>
     </main>
 
-    <form action="sendMsg.php" method="POST" class="msger-inputarea" style="display: <?php echo $displaySend ?>;">
+    <form name="myform" action="sendMsg.php" method="POST" enctype="multipart/form-data" class="msger-inputarea" style="display: <?php echo $displaySend ?>;">
       <input name="txtmsg" type="text" class="msger-input" placeholder="Enter your message to <?php echo $dest ?>" />
-      <!-- <button name="sendmsg" value="vc  " type="submit" class="msger-record-btn">
-        <i class="fa fa-microphone"></i>
-      </button> -->
-      <button type="submit" name="sendmsg" value="txt" class="msger-send-btn">
-        <i class="fa fa-send"></i>
-      </button>
+      <input type="file" name="file" id="file" accept=".ogg,.flac,.mp3" />
+
+      <div style="direction: rtl;">
+        <button type="submit" name="sendmsg" value="txt" class="msger-send-btn">
+          <i class="fa fa-send"></i>
+        </button>
+        <button name="sendmsg" value="vc" type="submit" class="msger-record-btn">
+          <i class="fa fa-microphone"></i>
+        </button>
+      </div>
     </form>
   </div>
 
 
   <script src="chat.js">
-    // var today = new Date();
-    // var time = today.getHours() + ':' + today.getMinutes();
-    // document.getElementById("time").innerHTML=time;
   </script>
 </body>
 

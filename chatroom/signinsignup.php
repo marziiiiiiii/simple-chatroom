@@ -7,7 +7,7 @@
 
 </head>
 
-<body>
+<body OnLoad="document.myform.user.focus();">
 
 	<?php
 	$msg = "";
@@ -77,7 +77,7 @@
 	<div class='welcome'>SMSM messenger</div>
 	<!-- <img  src="./resourses/paper3.gif" alt=""> -->
 	<div class='main'>
-		<form action="signinsignup.php" method="POST">
+		<form name="myform" action="signinsignup.php" method="POST">
 			<br>
 			<div class='info'>
 				Usrename: <input type="text" name="user">

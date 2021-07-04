@@ -33,7 +33,10 @@ function sendvc() {
 function openHistory(destName) {
   console.log(destName);
   document.cookie = 'dest=' + destName;
+  // var objDiv = document.getElementById('history');
+  // objDiv.scrollTop = objDiv.scrollHeight;
   location.reload();
+
 }
 
 // msgerForm.addEventListener('submit', (event) => {

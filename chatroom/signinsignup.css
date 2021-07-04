@@ -4,9 +4,15 @@
   --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   --msger-bg: #fff;
   --border: 2px solid #ddd;
-  --left-msg-bg: #ececec;  
-  --right-msg-bg: #579ffb;
 
+  --dark-background: #45b6dc;
+  --background: #78c5e3;
+  --primary: #dff5fd;
+  /*74affb 88bafc; */
+  --secondary: #fff;
+  --light-gray: #eee;
+  --gray: #ddd;
+  --dark-gray: #666;
 }
 
 html {
@@ -33,21 +39,27 @@ body {
 }
 .warning {
   margin-top: 60px;
+  color: var(--dark-gray);
+
 }
 .welcome {
   font-weight: bold;
   font-size: 40px;
   /* height: 200px; */
-  background-image:url("./resourses/paper3.gif");
+  background-image: url('./resourses/paper3.gif');
   background-repeat: no-repeat;
   background-size: cover;
   padding: 60px;
   margin: 40px;
+  color: rgb(56, 56, 56);
+
 }
 .main {
-  background-color: var(--right-msg-bg);
+  background-color: var(--dark-background);
   padding: 30px;
   border-radius: 40px;
+  color: var(--primary);
+  font-weight: bolder;
 }
 
 input {
@@ -56,8 +68,8 @@ input {
 }
 
 .btn {
-  background-color: white;
-  /* color: white; */
+  color: white;
+  background-color: var(--background);
   border: none;
   border-radius: 15px;
   padding: 13px;
@@ -67,5 +79,6 @@ input {
 }
 
 .btn:hover {
-  background-color: #ddd;
+  background-color: var(--gray);
+  color: var(--dark-background);
 }
