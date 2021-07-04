@@ -6,6 +6,7 @@
   --border: 2px solid #ddd;
   --left-msg-bg: #ececec;
   --right-msg-bg: #579ffb;
+  /*  45A0B1; */
 }
 
 html {
@@ -146,10 +147,18 @@ li:hover {
   color: #666;
 }
 
+.msger-header-title{
+  color: black;
+  font-size: 1.5em;
+
+}
+
 .msger-chat {
   flex: 1;
   overflow-y: auto;
   padding: 10px;
+  font-size: 1.15em;
+
 }
 .msger-chat::-webkit-scrollbar {
   width: 6px;
@@ -195,8 +204,12 @@ li:hover {
   margin-right: 10px;
   font-weight: bold;
 }
-.msg-info-time {
-  font-size: 0.85em;
+.msg-text {
+  font-weight: 550;
+}
+.msg-info-time{
+  font-size: 0.75em;
+
 }
 
 .left-msg .msg-bubble {
@@ -255,6 +268,6 @@ li:hover {
 }
 
 .msger-chat {
-  background-color: #fcfcfe;
+  /* background-color: #fcfcfe; */
   background-image: url('./resourses/chatbg.svg');
 }

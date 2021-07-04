@@ -4,8 +4,9 @@
   --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   --msger-bg: #fff;
   --border: 2px solid #ddd;
-  --left-msg-bg: #ececec;
+  --left-msg-bg: #ececec;  
   --right-msg-bg: #579ffb;
+
 }
 
 html {
@@ -44,7 +45,7 @@ body {
   margin: 40px;
 }
 .main {
-  background-color: #579ffb;
+  background-color: var(--right-msg-bg);
   padding: 30px;
   border-radius: 40px;
 }

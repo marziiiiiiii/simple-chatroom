@@ -16,58 +16,21 @@ if (!$con) {
 
 //---------------------------------------------
 
-// $sql = "CREATE TABLE Students
-// (
-// user varchar(15) NOT NULL , 
-// PRIMARY KEY(user),
-// pass varchar(15) NOT NULL ,
-// lvl int NOT NULL ,
-// dailyCorrects int ,
-// lastAccess DATETIME,
-// corrects varchar(15),
-// wrongs varchar(15)
-// )";
+$sql = "CREATE TABLE msgs
+(
+msgid int NOT NULL AUTO_INCREMENT , 
+PRIMARY KEY(msgid),
+source varchar(15) NOT NULL , 
+destination varchar(15) NOT NULL ,
+sendTime DATETIME,
+textMsg VARCHAR(1000),
+voiceMsg VARCHAR(1000),
+seen boolean
+
+)";
 
 //---------------------------------------------
 
-// $sql = "CREATE TABLE Questions
-// (
-// Qid int NOT NULL AUTO_INCREMENT , 
-// PRIMARY KEY(Qid),
-// qustion varchar(15) ,
-// objPic BLOB ,
-// objsPic BLOB ,
-// oprand varchar(5),
-// anwser int,
-// lvl int 
-// )";
-
-//---------------------------------------------
-
-// $sql = "CREATE TABLE objPictures
-// (
-// OPid int NOT NULL AUTO_INCREMENT , 
-// PRIMARY KEY(OPid),
-// objPic BLOB 
-// )";
-
-////bayad dar phpmyadmin be soorat dasti 8 ax ro insert kard
-////ax ha dar folder "picture for insert in db"
-
-//---------------------------------------------
-
-
-// $sql = "CREATE TABLE objsPictures
-// (
-// OsPid int NOT NULL AUTO_INCREMENT , 
-// PRIMARY KEY(OsPid),
-// objsPic BLOB 
-// )";
-
-////bayad dar phpmyadmin be soorat dasti 3 ax ro insert kard
-////ax ha dar folder "picture for insert in db"
-
-//---------------------------------------------
 
 if (mysqli_query($con, $sql)) {
     echo "Table created";

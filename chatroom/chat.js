@@ -30,9 +30,10 @@ function sendmsg() {
 function sendvc() {
   event.preventDefault();
 }
-function openHistory(n){
-  console.log(n)
-  document.cookie = "dest="+n; 
+function openHistory(destName) {
+  console.log(destName);
+  document.cookie = 'dest=' + destName;
+  location.reload();
 }
 
 // msgerForm.addEventListener('submit', (event) => {
