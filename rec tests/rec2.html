@@ -69,13 +69,13 @@
 
             // window.location.replace(blobUrl);
 
-            var a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style = "display: none";
-            a.href = blobUrl;
-            a.download = "omg.mp3";
-            a.click();
-            window.URL.revokeObjectURL(url);
+            // var a = document.createElement("a");
+            // document.body.appendChild(a);
+            // a.style = "display: none";
+            // a.href = blobUrl;
+            // a.download = "omg.mp3";
+            // a.click();
+            // window.URL.revokeObjectURL(url);
 
             // var filesaver = new FileSaver(bloburl, "hello.mp3");
             // abort_button.addEventListener(
@@ -86,6 +86,11 @@
             //   false
             // );
 
+            // downloadLink.href = blobUrl;
+            // downloadLink.download = "acetest.wav";
+
+            // let nblobUrl = await fetch("blob:null/b70ecb30-dbd1-4112-a3df-7eea009dbe04").then(r=> r.blob)
+
             recordedAudio.src = blobUrl;
             // recordedAudio.src = "blob:null/b70ecb30-dbd1-4112-a3df-7eea009dbe04" ;
             recordedAudio.controls = true;
@@ -94,7 +99,18 @@
           }
         };
       }
-      function sendData(data) {}
+      function sendData(blob) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function (e) {
+          if (this.readyState === 4) {
+            console.log("Server returned: ", e.target.responseText);
+          }
+        };
+        var fd = new FormData();
+        fd.append("that_random_filename.mp3", blob);
+        xhr.open("POST", "https://www.website.com/file.php", true);
+        xhr.send(fd);
+      }
 
       //   record.onclick = (e) =>
       function startRec() {
@@ -102,7 +118,6 @@
         startRecord.disabled = true;
         startRecord.style.backgroundColor = "blue";
         stopRecord.disabled = false;
-
 
         audioChunks = [];
         rec.start();
@@ -114,9 +129,6 @@
         stop.disabled = true;
         startRecord.style.backgroundColor = "red";
 
-
-
-        
         rec.stop();
       }
     </script>
@@ -128,6 +140,11 @@
     </p>
     <p>
       <audio id="recordedAudio"></audio>
+
+      <audio
+        controls
+        src="blob:null/de2636ff-1c5c-4e21-b909-11bc6f424992"
+      ></audio>
     </p>
   </body>
 </html>
