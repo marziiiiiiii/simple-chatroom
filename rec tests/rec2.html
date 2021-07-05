@@ -1,0 +1,133 @@
+<html>
+  <header>
+    <style>
+      #startRecord {
+        background-color: red; /* Green */
+        border-width: medium;
+        border-color: black;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        max-width: 50%;
+        max-height: 15%;
+        border-radius: 50%;
+        left: 100px;
+        right: 100px;
+        position: relative;
+      }
+      #stopRecord {
+        background-color: green; /* Green */
+        border-width: medium;
+        border-color: black;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        max-width: 50%;
+        max-height: 15%;
+        border-radius: 50%;
+        left: 100px;
+        right: 100px;
+        position: relative;
+      }
+      h2 {
+        left: 100px;
+        position: relative;
+      }
+      #recordedAudio {
+        left: 100px;
+        right: 100px;
+        position: relative;
+      }
+    </style>
+  </header>
+
+  <body>
+    <script>
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        handlerFunction(stream);
+      });
+
+      function handlerFunction(stream) {
+        rec = new MediaRecorder(stream);
+        rec.ondataavailable = (e) => {
+          audioChunks.push(e.data);
+          if (rec.state == "inactive") {
+            let blob = new Blob(audioChunks, { type: "audio/mpeg-3" });
+            // saveAs(blob, "hello.mp3");
+            var blobUrl = URL.createObjectURL(blob);
+            console.log(blobUrl);
+
+            // window.location.replace(blobUrl);
+
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            a.href = blobUrl;
+            a.download = "omg.mp3";
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            // var filesaver = new FileSaver(bloburl, "hello.mp3");
+            // abort_button.addEventListener(
+            //   "click",
+            //   function () {
+            //     filesaver.abort();
+            //   },
+            //   false
+            // );
+
+            recordedAudio.src = blobUrl;
+            // recordedAudio.src = "blob:null/b70ecb30-dbd1-4112-a3df-7eea009dbe04" ;
+            recordedAudio.controls = true;
+            recordedAudio.autoplay = true;
+            sendData(blob);
+          }
+        };
+      }
+      function sendData(data) {}
+
+      //   record.onclick = (e) =>
+      function startRec() {
+        console.log("I was clicked");
+        startRecord.disabled = true;
+        startRecord.style.backgroundColor = "blue";
+        stopRecord.disabled = false;
+
+
+        audioChunks = [];
+        rec.start();
+      }
+      //   stopRecord.onclick = (e) =>
+      function stopRec() {
+        console.log("I was clicked");
+        startRecord.disabled = false;
+        stop.disabled = true;
+        startRecord.style.backgroundColor = "red";
+
+
+
+        
+        rec.stop();
+      }
+    </script>
+
+    <h2>Record</h2>
+    <p>
+      <button id="startRecord" onclick="startRec()">start</button>
+      <button id="stopRecord" onclick="stopRec()" disabled>Stop</button>
+    </p>
+    <p>
+      <audio id="recordedAudio"></audio>
+    </p>
+  </body>
+</html>
