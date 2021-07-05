@@ -238,8 +238,9 @@ li:hover {
 }
 
 audio {
-  filter: sepia(0%) saturate(0%) grayscale(0%) contrast(110%) invert(100%);
+  filter: sepia(0%) saturate(0%) grayscale(0%) contrast(110%) invert(150%);
   background-color: transparent;
+  /* background-color: #95B9C7; */
   border-radius: 20px;
   /* width: 200px;
   height: 25px; */
