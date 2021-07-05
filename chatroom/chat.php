@@ -186,13 +186,14 @@
 
     <form name="myform" action="sendMsg.php" method="POST" enctype="multipart/form-data" class="msger-inputarea" style="display: <?php echo $displaySend ?>;">
       <input name="txtmsg" type="text" class="msger-input" placeholder="Enter your message to <?php echo $dest ?>" />
-      <input type="file" name="file" id="file" accept=".ogg,.flac,.mp3" />
+      <input type="file" name="file" id="file" accept=".ogg,.flac,.mp3"  />
+      <!-- <record name="recMsg" beep="true" maxtime="120s" finalsilence="5000ms" dtmfterm="true" type="audio/basic"  /> -->
 
 
-
+<!-- 
       <button id=startRecord onclick=startRec()>start</button>
       <button id=stopRecord onclick=stopRec() disabled>Stop</button>
-
+ -->
 
 
 

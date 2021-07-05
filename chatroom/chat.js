@@ -2,12 +2,10 @@ const msgerForm = get('.msger-inputarea');
 const msgerInput = get('.msger-input');
 const msgerChat = get('.msger-chat');
 
-// const from = get('.myname');
-// const fromImg = get('.myavatar');
 
-navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-  handlerFunction(stream);
-});
+// navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+//   handlerFunction(stream);
+// });
 
 function handlerFunction(stream) {
   rec = new MediaRecorder(stream);
@@ -41,19 +39,8 @@ function stopRec(){
   startRecord.style.backgroundColor = 'red';
   rec.stop();
 };
-//--------------------------------------------------
-// function sendmsg() {
-//   event.preventDefault();
+//------------------------------------------------------------------------
 
-//   const msgText = msgerInput.value;
-//   if (!msgText) return;
-//   appendMessage(from.textContent, fromImg.src, 'right', msgText);
-//   msgerInput.value = '';
-// }
-
-// function sendvc() {
-//   event.preventDefault();
-// }
 
 function openHistory(destName) {
   console.log(destName);
@@ -62,20 +49,3 @@ function openHistory(destName) {
   // objDiv.scrollTop = objDiv.scrollHeight;
   location.reload();
 }
-
-// msgerForm.addEventListener('submit', (event) => {
-//   event.preventDefault();
-
-//   const msgText = msgerInput.value;
-//   if (!msgText) return;
-
-//   appendMessage(PERSON_NAME, PERSON_IMG, 'right', msgText);
-//   msgerInput.value = '';
-
-//   botResponse();
-// });
-
-// Utils
-// function get(selector, root = document) {
-//   return root.querySelector(selector);
-// }
