@@ -18,7 +18,7 @@
 <body OnLoad="document.myform.txtmsg.focus();">
 
   <?php
-  function addMsgToHTMLStr($Messags, $side, $sendTime, $textMsg)
+  function addTxtMsgToHTMLStr($Messags, $side, $sendTime, $textMsg)
   {
     $Messags = $Messags . '<div class="msg ' . $side . '-msg">
     
@@ -34,7 +34,26 @@
 
     return $Messags;
   }
+  function addVcMsgToHTMLStr($Messags, $side, $sendTime, $voiceMsg)
+  {
+    $Messags = $Messags . '<div class="msg ' . $side . '-msg">
+    
+                <div class="msg-bubble">
+                  <div class="msg-info">
+                    <div class="msg-audio">
+                    <audio controls>
+                      <source src="uploads/' . $voiceMsg . '" type="audio/mpeg">
+                    </audio> 
+                    </div>
+                  </div>
 
+                  <div class="msg-info-time">
+                    ' . $sendTime . '
+                  </div>
+                </div></div>';
+
+    return $Messags;
+  }
 
   if (isset($_COOKIE["signedin"]) && $_COOKIE["signedin"] == '1') {
 
@@ -75,7 +94,6 @@
               <div class='status'>last seen recently</div>
             </div>
           </li> ";
-
         } else {
           if ($row["picture"] == null) {
             $myavatar = '<img class="myavatar" src="./resourses/u2.png"/>';
@@ -106,29 +124,14 @@
           }
 
           if ($row["textMsg"] != null) {
-            $Messags = addMsgToHTMLStr($Messags, $side, $row["sendTime"], $row["textMsg"]);
+            $Messags = addTxtMsgToHTMLStr($Messags, $side, $row["sendTime"], $row["textMsg"]);
           } else {
-            $Messags = $Messags . '<div class="msg ' . $side . '-msg">
-    
-                <div class="msg-bubble">
-                  <div class="msg-info">
-                    <div class="msg-audio">
-                    <audio controls>
-                      <source src="uploads/'.$row["voiceMsg"].'" type="audio/mpeg">
-                    </audio> 
-                    </div>
-                  </div>
-
-                  <div class="msg-info-time">
-                    ' . $row["sendTime"] . '
-                  </div>
-                </div></div>';
+            $Messags = addVcMsgToHTMLStr($Messags, $side, $row["sendTime"], $row["voiceMsg"]);
           }
         }
       } else {
         $Messags = "<div class='empty-history'>no history</div>";
       }
-
     } else {
       $displayLastSeen = "hidden";
       $displaySend = "none";
@@ -184,6 +187,14 @@
     <form name="myform" action="sendMsg.php" method="POST" enctype="multipart/form-data" class="msger-inputarea" style="display: <?php echo $displaySend ?>;">
       <input name="txtmsg" type="text" class="msger-input" placeholder="Enter your message to <?php echo $dest ?>" />
       <input type="file" name="file" id="file" accept=".ogg,.flac,.mp3" />
+
+
+
+      <button id=startRecord onclick=startRec()>start</button>
+      <button id=stopRecord onclick=stopRec() disabled>Stop</button>
+
+
+
 
       <div style="direction: rtl;">
         <button type="submit" name="sendmsg" value="txt" class="msger-send-btn">
