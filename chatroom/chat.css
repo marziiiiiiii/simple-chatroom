@@ -237,6 +237,14 @@ li:hover {
   margin: 0 0 0 10px;
 }
 
+audio {
+  filter: sepia(0%) saturate(0%) grayscale(0%) contrast(110%) invert(100%);
+  background-color: transparent;
+  border-radius: 20px;
+  /* width: 200px;
+  height: 25px; */
+}
+
 .msger-inputarea {
   display: flex;
   /* padding: 10px; */

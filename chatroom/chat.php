@@ -18,7 +18,7 @@
 <body OnLoad="document.myform.txtmsg.focus();">
 
   <?php
-  function addMsgToHTMLStr($Messags, $side, $source, $sendTime, $textMsg)
+  function addMsgToHTMLStr($Messags, $side, $sendTime, $textMsg)
   {
     $Messags = $Messags . '<div class="msg ' . $side . '-msg">
     
@@ -106,8 +106,23 @@
           }
 
           if ($row["textMsg"] != null) {
-            $Messags = addMsgToHTMLStr($Messags, $side, $row["source"], $row["sendTime"], $row["textMsg"]);
+            $Messags = addMsgToHTMLStr($Messags, $side, $row["sendTime"], $row["textMsg"]);
           } else {
+            $Messags = $Messags . '<div class="msg ' . $side . '-msg">
+    
+                <div class="msg-bubble">
+                  <div class="msg-info">
+                    <div class="msg-audio">
+                    <audio controls>
+                      <source src="uploads/'.$row["voiceMsg"].'" type="audio/mpeg">
+                    </audio> 
+                    </div>
+                  </div>
+
+                  <div class="msg-info-time">
+                    ' . $row["sendTime"] . '
+                  </div>
+                </div></div>';
           }
         }
       } else {
